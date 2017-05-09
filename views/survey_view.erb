@@ -3,6 +3,11 @@
     <div class="col-md-6">
       <h4><%= @survey.name %></h4>
       <h5><%= @survey.description %></h5>
+      <ul>
+        <% @survey.questions.each do |question| %>
+          <li><%= question.question %></li>
+        <% end %>
+      </ul>
       <br>
     </div>
     <div class="col-md-6">
@@ -18,6 +23,15 @@
         <br>
         <button type="submit" class="btn btn-success">Edit Survey</button>
       </form>
+      <!-- questions form -->
+      <form class="form-group" action="/question" method="post">
+        <input name="survey_id" type="hidden" value="<%= @survey.id %>">
+        <label for="question-name">Enter Question</label>
+        <input class="form-control" type="text" name="question-name">
+        <br>
+        <button type="submit" class="btn btn-success">Add Question</button>
+      </form>
+      <!-- delet button -->
       <form action="/survey" method="post">
         <input name="_method" type="hidden" value="delete">
         <input name="survey_id" type="hidden" value="<%= @survey.id %>">

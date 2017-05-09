@@ -41,6 +41,15 @@ end
 delete "/survey" do
   id = params.fetch('survey_id')
   survey = Survey.find(id)
+  survey.questions.delete
   survey.delete
   redirect "/"
+end
+
+post "/question" do
+  id = params.fetch("survey_id")
+  survey = Survey.find(id)
+  question_name = params.fetch("question-name")
+  survey.questions.create(question: question_name)
+  redirect "/survey/#{id}"
 end
