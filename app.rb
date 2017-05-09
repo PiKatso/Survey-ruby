@@ -53,3 +53,17 @@ post "/question" do
   survey.questions.create(question: question_name)
   redirect "/survey/#{id}"
 end
+
+get "/question/:id" do
+  question_id = params.fetch('id')
+  @question = Question.find(question_id)
+  erb :question_view
+end
+
+delete "/question" do
+  question_id = params.fetch('question_id')
+  question = Question.find(question_id)
+  survey_id = question.survey_id
+  question.delete
+  redirect "/survey/#{survey_id}"
+end

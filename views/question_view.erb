@@ -1,0 +1,9 @@
+<h2><%= @question.question %></h2>
+<br>
+<form class="" action="/question" method="post">
+  <input name="_method" type="hidden" value="delete">
+  <input name="question_id" type="hidden" value="<%= @question.id %>">
+  <button class="btn btn-danger" type="submit" name="button">Delete Question</button>
+</form>
+<br>
+<a class="btn btn-success" href="/">Home</a>

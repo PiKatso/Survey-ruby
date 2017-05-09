@@ -5,7 +5,7 @@
       <h5><%= @survey.description %></h5>
       <ul>
         <% @survey.questions.each do |question| %>
-          <li><%= question.question %></li>
+          <li><a href="/question/<%=question.id %>"><%= question.question %></a></li>
         <% end %>
       </ul>
       <br>
