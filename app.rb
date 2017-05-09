@@ -54,6 +54,14 @@ post "/question" do
   redirect "/survey/#{id}"
 end
 
+patch "/question" do
+  question_id = params.fetch("question_id")
+  updated_description = params.fetch("question-name")
+  question = Question.find(question_id)
+  question.update({question: updated_description})
+  redirect "/question/#{question_id}"
+end
+
 get "/question/:id" do
   question_id = params.fetch('id')
   @question = Question.find(question_id)
@@ -64,6 +72,15 @@ delete "/question" do
   question_id = params.fetch('question_id')
   question = Question.find(question_id)
   survey_id = question.survey_id
+  question.answers.delete
   question.delete
   redirect "/survey/#{survey_id}"
+end
+
+post "/answer" do
+  question_id = params.fetch('question_id')
+  question = Question.find(question_id)
+  answer_name = params.fetch("answer-name")
+  question.answers.create({description: answer_name})
+  redirect "/question/#{question_id}"
 end
