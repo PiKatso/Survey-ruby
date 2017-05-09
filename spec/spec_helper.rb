@@ -6,10 +6,13 @@ require "pry"
 require "sinatra/activerecord"
 require "survey"
 
-# RSpec.configure do |config|
-#   config.after(:each) do
-#     Department.all.each do |d|
-#       d.destroy
-#     end
-#   end
-# end
+RSpec.configure do |config|
+  config.after(:each) do
+    Survey.all.each do |d|
+      d.destroy
+    end
+    Question.all.each do |d|
+      d.destroy
+    end
+  end
+end

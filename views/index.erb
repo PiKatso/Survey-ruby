@@ -1,0 +1,8 @@
+<h2><a href="/survey/new">Make a New Survey</a></h2>
+
+<h3><%= @survey_message %></h3>
+<ul>
+  <% Survey.all.each do |survey| %>
+    <li><a href="/survey/<%= survey.id %>"><%= survey.name %></a></li>
+  <% end %>
+</ul>
