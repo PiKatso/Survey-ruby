@@ -7,7 +7,7 @@ require "pry"
 also_reload "lib/**/*.rb"
 
 get "/" do
-  @survey_message = Survey.all.length > 0 ? "Select a Survey" : "You haven't made a survey yet!"
+  @survey_message = Survey.all.length > 0 ? "Select a Survey to Edit" : "You haven't made a survey yet!"
   erb :index
 end
 
@@ -41,8 +41,7 @@ end
 delete "/survey" do
   id = params.fetch('survey_id')
   survey = Survey.find(id)
-  survey.questions.delete
-  survey.delete
+  survey.destroy
   redirect "/"
 end
 
@@ -72,8 +71,7 @@ delete "/question" do
   question_id = params.fetch('question_id')
   question = Question.find(question_id)
   survey_id = question.survey_id
-  question.answers.delete
-  question.delete
+  question.destroy
   redirect "/survey/#{survey_id}"
 end
 
@@ -83,4 +81,18 @@ post "/answer" do
   answer_name = params.fetch("answer-name")
   question.answers.create({description: answer_name})
   redirect "/question/#{question_id}"
+end
+
+get "/choose-survey" do
+  erb :choose_survey
+end
+
+get "/choose-survey/:id" do
+  survey_id = params.fetch("id")
+  @survey = Survey.find(survey_id)
+  erb :choose_survey
+end
+
+get "/submit-survey" do
+  redirect "/choose-survey"
 end

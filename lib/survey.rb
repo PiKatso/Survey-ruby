@@ -1,5 +1,5 @@
 class Survey < ActiveRecord::Base
-  has_many :questions
+  has_many :questions, dependent: :destroy
   before_save :capitalize_words
 
   private
@@ -12,7 +12,7 @@ end
 
 class Question < ActiveRecord::Base
   belongs_to :survey
-  has_many :answers
+  has_many :answers, dependent: :destroy
 end
 
 class Answer <ActiveRecord::Base

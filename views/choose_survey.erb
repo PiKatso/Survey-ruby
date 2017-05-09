@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <% Survey.all.each do |survey| %>
+        <h2><a href="/choose-survey/<%= survey.id %>"><%= survey.name %></a></h2>
+      <% end %>
+    </div>
+    <div class="col-md-6">
+      <% if @survey %>
+        <h2><%= @survey.name %></h2>
+        <form action="/submit-survey" class="form-group">
+        <% @survey.questions.each do |question| %>
+          <h3><%= question.question %></h3>
+          <select class="form-control" name="<%= question.id %>">
+          <% question.answers.each do |answer| %>
+            <%= "<option value='#{answer.id}'>#{answer.description}</option>"%>
+          <% end %>
+          </select>
+        <% end %>
+        <br>
+        <button type="submit" class="btn btn-success">Submit Survey</button>
+      </form>
+      <% end %>
+    </div>
+  </div>
+
+</div>
